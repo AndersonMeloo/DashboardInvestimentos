@@ -43,7 +43,7 @@ export function FundForm({ form, setForm, isSubmitting, onSubmit }: FundFormProp
                                         ticker: event.target.value.toUpperCase(),
                                     }))
                                 }
-                                placeholder="Ex: XPML11"
+                                placeholder="Ex: MFII11"
                                 required
                             />
                         </label>
@@ -64,16 +64,17 @@ export function FundForm({ form, setForm, isSubmitting, onSubmit }: FundFormProp
                         </label>
 
                         <label>
-                            Valor da cota
+                            Valor da cota (ex: 100,00)
                             <input
                                 type="number"
                                 min="0.01"
                                 step="0.01"
+                                placeholder="Ex: 100,00"
                                 value={form.pricePerShare}
                                 onChange={(event) =>
                                     setForm((previous) => ({
                                         ...previous,
-                                        pricePerShare: event.target.value,
+                                        pricePerShare: event.target.value.replace(',', '.'),
                                     }))
                                 }
                                 required
@@ -81,6 +82,7 @@ export function FundForm({ form, setForm, isSubmitting, onSubmit }: FundFormProp
                         </label>
 
                         <button
+                        className='salvar'
                             type="submit"
                             disabled={isSubmitting}>
                             {isSubmitting ? 'Salvando...' : 'Salvar fundo'}

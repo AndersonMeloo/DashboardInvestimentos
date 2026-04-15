@@ -29,6 +29,7 @@ export function FundForm({ form, setForm, isSubmitting, onSubmit }: FundFormProp
                                         name: event.target.value,
                                     }))
                                 }
+                                placeholder='Fundo de Papel, Tijolo, Híbrido e etc..'
                                 required
                             />
                         </label>
@@ -58,7 +59,7 @@ export function FundForm({ form, setForm, isSubmitting, onSubmit }: FundFormProp
                                         type: event.target.value,
                                     }))
                                 }
-                                placeholder="Ex: FISS"
+                                placeholder="Ex: FISS, Ações e etc.."
                                 required
                             />
                         </label>

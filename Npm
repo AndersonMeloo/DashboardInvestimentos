@@ -1,0 +1,19 @@
+npx -y @nestjs/cli new . --package-manager npm --skip-git
+. : Pasta Atual
+--package-manager npm: Define gerenciador que será usado (npm)
+--skip-git: Evita que inicie com Repositório Git automaticamente
+
+npm install @prisma/client class-validator class-transformer
+npm install -D prisma
+npx prisma init
+
+Usei Prisma 6 para evitar erro de compatibilidae com a versão mais nova do Prisma 7
+npm install @prisma/client@6.16.2
+npm install -D prisma@6.16.2
+npx prisma generate
+
+Criando Pastas
+funds, transactions e wallet
+npx nest g resource funds
+npx nest g resource wallet
+npx nest g resource transactions

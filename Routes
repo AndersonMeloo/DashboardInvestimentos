@@ -1,3 +1,5 @@
+COMO USAR AS ROTAS
+
 POST /api/funds
 http://localhost:3000/api/funds
 {
@@ -35,3 +37,6 @@ http://localhost:3000/api/transactions
 
 GET /api/wallet/summary
 http://localhost:3000/api/wallet/summary
+
+DELETE: 
+http://localhost:3000/api/funds

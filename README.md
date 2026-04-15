@@ -1,98 +1,146 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Investments
+## Visão geral
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+- Backend em NestJS com Prisma e PostgreSQL.
+- Frontend em React + Vite na pasta [frontend](frontend).
+- API com prefixo global em http://localhost:3000/api.
+- Validação de entrada com mensagens em português.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Estrutura
 
-## Description
+- [src](src): backend NestJS.
+- [prisma/schema.prisma](prisma/schema.prisma): modelo do banco.
+- [frontend](frontend): interface web do dashboard.
+- [Routes](Routes): exemplos de uso das rotas da API.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Requisitos
 
-## Project setup
+- Node.js 22 ou superior.
+- PostgreSQL disponível localmente ou em um serviço remoto.
+- npm.
 
-```bash
-$ npm install
-```
+## Configuração inicial
 
-## Compile and run the project
+1. Instale as dependências do backend na raiz do projeto.
 
-```bash
-# development
-$ npm run start
+   ```bash
+   npm install
+   ```
 
-# watch mode
-$ npm run start:dev
+2. Configure a variável de ambiente do banco de dados.
 
-# production mode
-$ npm run start:prod
-```
+   Use o arquivo [.env.example](.env.example) como base e crie um [.env](.env) com a URL do PostgreSQL.
 
-## Run tests
+3. Inicialize o schema do Prisma.
 
-```bash
-# unit tests
-$ npm run test
+   ```bash
+   npx prisma migrate dev --name init
+   ```
 
-# e2e tests
-$ npm run test:e2e
+   Se preferir apenas sincronizar o schema com o banco em ambiente local, também é possível usar `npx prisma db push`.
 
-# test coverage
-$ npm run test:cov
-```
+## Como executar
 
-## Deployment
+### Backend
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Em um terminal na raiz do projeto:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+O servidor sobe em http://localhost:3000 e expõe a API em http://localhost:3000/api.
 
-## Resources
+### Frontend
 
-Check out a few resources that may come in handy when working with NestJS:
+Em outro terminal:
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
-## Support
+O Vite normalmente abre em http://localhost:5173.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Se quiser apontar o frontend para outro backend, defina VITE_API_BASE_URL. Quando essa variável não existe, o frontend usa http://localhost:3000/api.
 
-## Stay in touch
+## Funcionalidades
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+- Cadastro, listagem e atualização de fundos.
+- Registro de movimentações de aporte e resgate.
+- Cálculo de cotas e saldo por fundo.
+- Resumo consolidado da carteira.
+- Limpeza em massa de fundos e movimentações para ambiente de teste.
 
-## License
+## Rotas da API
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+### Fundos
+
+- POST /api/funds
+- GET /api/funds
+- PUT /api/funds/:id
+- DELETE /api/funds
+
+Exemplo de criação:
+
+```json
+{
+  "name": "Fundo BTG",
+  "ticker": "BBTG11",
+  "type": "Renda Fixa",
+  "pricePerShare": 95.75
+}
+```
+
+### Movimentações
+
+- POST /api/transactions
+- GET /api/transactions
+- DELETE /api/transactions
+
+Exemplo de aporte:
+
+```json
+{
+  "fundId": "a06e0bec-09fb-4fc8-8ba0-681b7c359b37",
+  "type": "APORTE",
+  "amount": 1000,
+  "date": "2026-04-15T12:00:00.000Z"
+}
+```
+
+Exemplo de resgate:
+
+```json
+{
+  "fundId": "a06e0bec-09fb-4fc8-8ba0-681b7c359b37",
+  "type": "RESGATE",
+  "amount": 500
+}
+```
+
+### Carteira
+
+- GET /api/wallet/summary
+
+## Respostas da API
+
+A API retorna objetos com `message` e `data`. O frontend consome esse formato diretamente.
+
+## Testes
+
+```bash
+npm run test
+npm run test:e2e
+```
+
+## Docker
+
+O [Dockerfile](Dockerfile) prepara uma imagem para o backend. Ele instala as dependências, compila o NestJS e inicia a aplicação em produção na porta 3000.
+
+## Observações
+
+- O modelo Prisma usa TransactionType com os valores APORTE e RESGATE.
+- O resumo da carteira considera apenas posições com saldo positivo.
+- O ticker do fundo é normalizado para maiúsculas no cadastro.

@@ -112,7 +112,7 @@ export class TransactionsService {
 
   //  Aqui calcula a quantidade de cotas com base no valor investido do usuário
   private calculateShares(amount: number, pricePerShare: number): number {
-    return Number((amount / pricePerShare).toFixed(6));
+    return Math.round(amount / pricePerShare);
   }
 
   // Aqui calcula o salkdo total do dinheiro das cotas do fundo, somando aportes e subtraindo resgates
@@ -138,5 +138,18 @@ export class TransactionsService {
     );
 
     return totals;
+  }
+
+  async deleteAll() {
+    try {
+      const result = await this.prisma.transaction.deleteMany();
+
+      return {
+        message: `${result.count} transação(ões) deletada(s) com sucesso`,
+        data: { deletedCount: result.count },
+      };
+    } catch {
+      throw new InternalServerErrorException('Erro ao deletar transações');
+    }
   }
 }

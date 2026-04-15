@@ -1,6 +1,15 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Put,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { FundsService } from './funds.service';
 import { CreateFundDto } from './dto/create-fund.dto';
+import { UpdateFundDto } from './dto/update-fund.dto';
 
 @Controller('funds')
 export class FundsController {
@@ -14,5 +23,15 @@ export class FundsController {
   @Get()
   findAll() {
     return this.fundsService.findAll();
+  }
+
+  @Put(':id')
+  update(@Param('id') id: string, @Body() updateFundDto: UpdateFundDto) {
+    return this.fundsService.update(id, updateFundDto);
+  }
+
+  @Delete()
+  deleteAll() {
+    return this.fundsService.deleteAll();
   }
 }

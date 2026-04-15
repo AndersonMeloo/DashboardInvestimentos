@@ -4,6 +4,7 @@ import {
   IsPositive,
   IsString,
   MaxLength,
+  Min,
 } from 'class-validator';
 
 export class CreateFundDto {
@@ -24,5 +25,6 @@ export class CreateFundDto {
 
   @IsNumber({}, { message: 'O preço por cota deve ser um número' })
   @IsPositive({ message: 'O preço por cota deve ser um número positivo' })
+  @Min(0.01, { message: 'O preço por cota deve ser no mínimo R$ 0,01' })
   pricePerShare!: number;
 }

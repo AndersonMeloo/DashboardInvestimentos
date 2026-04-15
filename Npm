@@ -17,3 +17,5 @@ funds, transactions e wallet
 npx nest g resource funds
 npx nest g resource wallet
 npx nest g resource transactions
+
+Frontend: npm create vite@latest frontend -- --template react-ts

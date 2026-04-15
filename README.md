@@ -1,4 +1,5 @@
-# Investments
+# Dashboard de Investimentos
+
 ## Visão geral
 
 - Backend em NestJS com Prisma e PostgreSQL.
@@ -19,25 +20,61 @@
 - PostgreSQL disponível localmente ou em um serviço remoto.
 - npm.
 
-## Configuração inicial
+## Banco de dados (PostgreSQL + Prisma)
 
-1. Instale as dependências do backend na raiz do projeto.
+Este projeto utiliza PostgreSQL com Prisma.
 
-   ```bash
-   npm install
-   ```
+### 🐳 Opção 1 — Docker (RECOMENDADO)
 
-2. Configure a variável de ambiente do banco de dados.
+```bash
+docker-compose up -d
+```
 
-   Use o arquivo [.env.example](.env.example) como base e crie um [.env](.env) com a URL do PostgreSQL.
+**Configure o .env:**
+```
+DATABASE_URL="postgresql://postgres:postgres@db:5432/dashboard_investments"
+```
 
-3. Inicialize o schema do Prisma.
+### 🖥️ Opção 2 — PostgreSQL local
 
-   ```bash
-   npx prisma migrate dev --name init
-   ```
+```sql
+CREATE DATABASE dashboard_investments;
+```
 
-   Se preferir apenas sincronizar o schema com o banco em ambiente local, também é possível usar `npx prisma db push`.
+**Configure o .env:**
+```
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/dashboard_investments"
+```
+
+## Configuração inicial (Prisma)
+
+Use o arquivo .env.example como base e crie um .env
+
+Instale dependências:
+
+```bash
+npm install
+```
+
+Instale Prisma (já incluído em package.json):
+
+```bash
+npm install @prisma/client class-validator class-transformer
+npm install -D prisma
+npx prisma generate
+```
+
+Rode migrations:
+
+```bash
+npx prisma migrate dev --name init
+```
+
+Ou (opcional):
+
+```bash
+npx prisma db push
+```
 
 ## Como executar
 
@@ -71,15 +108,16 @@ Se quiser apontar o frontend para outro backend, defina VITE_API_BASE_URL. Quand
 - Registro de movimentações de aporte e resgate.
 - Cálculo de cotas e saldo por fundo.
 - Resumo consolidado da carteira.
-- Limpeza em massa de fundos e movimentações para ambiente de teste. Funciona somente em Postman, Insomnia e etc..
+- Limpeza em massa de fundos e movimentações para ambiente de teste.
 
 ## Rotas da API
+
 ### Fundos
 
 - POST /api/funds
 - GET /api/funds
-- PUT /api/funds/:id Funciona somente em Postman, Insomnia e etc..
-- DELETE /api/funds Funciona somente em Postman, Insomnia e etc..
+- PUT /api/funds/:id
+- DELETE /api/funds
 
 Exemplo de criação:
 
@@ -88,12 +126,12 @@ Exemplo de criação:
   "name": "Fundo de Papel, Tijolo, Híbrido e etc..",
   "ticker": "MFII11",
   "type": "FISS, Ações e etc",
-  "pricePerShare": 67,96
+  "pricePerShare": 67.96
 }
 ```
 
 ### Movimentações
-Funciona somente em Postman, Insomnia e etc..
+
 - POST /api/transactions
 - GET /api/transactions 
 - DELETE /api/transactions
@@ -125,18 +163,18 @@ Exemplo de resgate:
 
 ## Respostas da API
 
-A API retorna objetos com `message` e `data`. O frontend consome esse formato diretamente.
+A API retorna objetos com message e data.
 
-## Testes
-
-```bash
-npm run test
-npm run test:e2e
-```
+O frontend consome esse formato diretamente.
 
 ## Docker
 
-O [Dockerfile](Dockerfile) prepara uma imagem para o backend. Ele instala as dependências, compila o NestJS e inicia a aplicação em produção na porta 3000.
+O Dockerfile prepara a imagem do backend, instala dependências, compila o NestJS e executa a aplicação em produção na porta 3000.
+
+```bash
+docker build -t dashboard-backend .
+docker run -p 3000:3000 --env-file .env dashboard-backend
+```
 
 ## Observações
 

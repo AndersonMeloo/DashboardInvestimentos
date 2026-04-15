@@ -9,9 +9,9 @@ export function formatCurrency(value: number): string {
 export function formatShares(value: number): string {
 
     return new Intl.NumberFormat('pt-BR', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 6,
-    }).format(value);
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(Math.round(value));
 }
 
 export function formatDate(value: string): string {
